@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CalculationViewController.swift
 //  Discression
 //
 //  Created by Wilson Styres on 10/8/17.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class CalculationViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
