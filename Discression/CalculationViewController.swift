@@ -34,7 +34,7 @@ class CalculationViewController: NSViewController {
     func recalculateFields(value: String) {
         let result: Result = Calculator.calculateAll(number: value)
         
-        let answerString: String = "Hex to Int: \(result.hexToInt)\nHex to Double: \(result.hexToDouble)\nHex to Binary: \(result.decimalToHex)\nDecimal to Hex: \(result.decimalToHex)\nDecimal to Binary: \(result.decimalToBinary)\nBinary to Int: \(result.binaryToInt)\nBinary to Double: \(result.binaryToDouble)\nBinary to Hex: \(result.binaryToHex)\nTwo's Complement to Int: \(result.complementToInt)"
+        let answerString: String = "Hex to Int: \(result.hexToInt)\nHex to Double: \(result.hexToDouble)\nHex to Binary: \(result.decimalToHex)\nDecimal to Hex: \(result.decimalToHex)\nDecimal to Binary: \(result.decimalToBinary)\nBinary to Int: \(result.binaryToInt)\nBinary to Double: \(result.binaryToDouble)\nBinary to Hex: \(result.binaryToHex)\nTwo's Complement to Int: \(result.complementToInt)\nInt to Two's Complement: \(result.intToComplement)"
         
         resultTextField.stringValue = answerString
     }

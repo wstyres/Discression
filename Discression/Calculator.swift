@@ -20,6 +20,7 @@ struct Result {
     var binaryToDouble: Double = 0;
     var binaryToHex: String = "0";
     var complementToInt: Int = 0;
+    var intToComplement: String = "0";
 }
 
 class Calculator: NSObject {
@@ -35,6 +36,7 @@ class Calculator: NSObject {
         result.binaryToDouble = number.binaryToDouble
         result.binaryToHex = number.binaryToHex
         result.complementToInt = number.complementToInt
+        result.intToComplement = number.intToComplement
         
         return result
     }
@@ -64,16 +66,14 @@ class Calculator: NSObject {
 
 extension String {
     //Various converters
-    var hexToInt: Int    { return Int(strtoul(self, nil, 16)) }
+    var hexToInt: Int { return Int(strtoul(self, nil, 16)) }
     var hexToDouble: Double { return Double(strtoul(self, nil, 16)) }
     var hexToBinary: String { return String(hexToInt, radix: 2) }
     var decimalToHex: String { return String(Int(self) ?? 0, radix: 16) }
     var decimalToBinary: String { return String(Int(self) ?? 0, radix: 2) }
-    var binaryToInt: Int    { return Int(strtoul(self, nil, 2)) }
+    var binaryToInt: Int { return Int(strtoul(self, nil, 2)) }
     var binaryToDouble: Double { return Double(strtoul(self, nil, 2)) }
     var binaryToHex: String { return String(binaryToInt, radix: 16) }
-    
-    
     
     //Takes two's complement binary string and converts it into an int
     var complementToInt: Int {
@@ -91,6 +91,26 @@ extension String {
         }
         else {
             return 0
+        }
+    }
+    
+    //Takes an integer string and turns it into 8 bit two's complement
+    var intToComplement: String {
+        let intValue = Int(self) != nil ? Int(self)! : 0
+        if intValue <= 127 && intValue >= 128 {
+            if intValue >= 0 {
+                return decimalToBinary
+            }
+            else {
+                let binary = decimalToBinary
+                let invertedBinary = Calculator.invertBinary(binary: binary)
+                let result = Calculator.addBinary(a: invertedBinary, b: "1")
+                
+                return result
+            }
+        }
+        else {
+            return "Number does not fit in range"
         }
     }
     
