@@ -19,7 +19,7 @@ struct Result {
     var binaryToInt: Int = 0;
     var binaryToDouble: Double = 0;
     var binaryToHex: String = "0";
-    var complementToInt: Double = 0;
+    var complementToInt: Int = 0;
 }
 
 class Calculator: NSObject {
@@ -39,6 +39,27 @@ class Calculator: NSObject {
         return result
     }
     
+    class func invertBinary(binary: String) -> String {
+        var invertedString: String = ""
+        
+        for character in binary {
+            if character == "0" {
+                invertedString += "1"
+            }
+            else if character == "1" {
+                invertedString += "0"
+            }
+        }
+        
+        return invertedString
+    }
+    
+ class func addBinary(a:String, b:String) -> String {
+        guard let _a = Int(a, radix: 2), let _b = Int(b, radix: 2) else { return "0" }
+        
+        return String(_a + _b, radix: 2)
+    }
+    
 }
 
 extension String {
@@ -51,7 +72,27 @@ extension String {
     var binaryToInt: Int    { return Int(strtoul(self, nil, 2)) }
     var binaryToDouble: Double { return Double(strtoul(self, nil, 2)) }
     var binaryToHex: String { return String(binaryToInt, radix: 16) }
-    var complementToInt: Double { return Double(Int16(bitPattern: UInt16(self, radix: 16) ?? 0))}
+    
+    
+    
+    //Takes two's complement binary string and converts it into an int
+    var complementToInt: Int {
+        if self.characters.first == "0" {
+            return binaryToInt
+        }
+        else if self.characters.first == "1" {
+            let invertedBinary = Calculator.invertBinary(binary: self)
+            print(invertedBinary)
+            let additiveComplement = Calculator.addBinary(a: invertedBinary, b: "1")
+            print(additiveComplement)
+            var result = additiveComplement.binaryToInt
+            result.negate()
+            return result
+        }
+        else {
+            return 0
+        }
+    }
     
     //Convert half precision binary string into a Float
     var halfPrecisionBinaryToFloat: Float {
