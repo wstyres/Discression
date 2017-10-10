@@ -10,6 +10,8 @@ import Cocoa
 
 class CalculationViewController: NSViewController {
 
+    @IBOutlet weak var textField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +26,9 @@ class CalculationViewController: NSViewController {
     }
     
     @objc func calculationFieldDidChange() {
-        print("nice!")
+        print(textField.stringValue)
+        let result: Result = Calculator.calculateAll(number: textField.stringValue)
+        print(result)
     }
     
 }

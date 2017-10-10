@@ -10,10 +10,33 @@ import Cocoa
 import Foundation
 import Accelerate
 
+struct Result {
+    var hexToInt: Int = 0;
+    var hexToDouble: Double = 0;
+    var hexToBinary: String = "0";
+    var decimalToHex: String = "0";
+    var decimalToBinary: String = "0";
+    var binaryToInt: Int = 0;
+    var binaryToDouble: Double = 0;
+    var binaryToHex: String = "0";
+    var twosComplimentToInt: Double = 0;
+}
+
 class Calculator: NSObject {
     
-    class func calculateAll(number: String) {
+    class func calculateAll(number: String) -> Result {
+        var result: Result = Result()
+        result.hexToInt = number.hexToInt
+        result.hexToDouble = number.hexToDouble
+        result.hexToBinary = number.hexToBinary
+        result.decimalToHex = number.decimalToHex
+        result.decimalToBinary = number.decimalToBinary
+        result.binaryToInt = number.binaryToInt
+        result.binaryToDouble = number.binaryToDouble
+        result.binaryToHex = number.binaryToHex
+        result.twosComplimentToInt = number.twosComplimentToInt
         
+        return result
     }
     
 }
