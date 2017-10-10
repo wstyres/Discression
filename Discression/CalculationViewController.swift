@@ -13,6 +13,7 @@ class CalculationViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(CalculationViewController.calculationFieldDidChange), name: NSNotification.Name(rawValue: "NSTextDidChangeNotification"), object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +22,10 @@ class CalculationViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
+    
+    @objc func calculationFieldDidChange() {
+        print("nice!")
+    }
+    
 }
 
