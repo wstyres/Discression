@@ -19,7 +19,7 @@ struct Result {
     var binaryToInt: Int = 0;
     var binaryToDouble: Double = 0;
     var binaryToHex: String = "0";
-    var twosComplimentToInt: Double = 0;
+    var complementToInt: Double = 0;
 }
 
 class Calculator: NSObject {
@@ -34,7 +34,7 @@ class Calculator: NSObject {
         result.binaryToInt = number.binaryToInt
         result.binaryToDouble = number.binaryToDouble
         result.binaryToHex = number.binaryToHex
-        result.twosComplimentToInt = number.twosComplimentToInt
+        result.complementToInt = number.complementToInt
         
         return result
     }
@@ -51,7 +51,7 @@ extension String {
     var binaryToInt: Int    { return Int(strtoul(self, nil, 2)) }
     var binaryToDouble: Double { return Double(strtoul(self, nil, 2)) }
     var binaryToHex: String { return String(binaryToInt, radix: 16) }
-    var twosComplimentToInt: Double { return Double(Int16(bitPattern: UInt16(self, radix: 16) ?? 0))}
+    var complementToInt: Double { return Double(Int16(bitPattern: UInt16(self, radix: 16) ?? 0))}
     
     //Convert half precision binary string into a Float
     var halfPrecisionBinaryToFloat: Float {
