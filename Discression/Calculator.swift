@@ -27,14 +27,17 @@ class Calculator: NSObject {
     
     class func calculateAll(number: String) -> Result {
         var result: Result = Result()
-        result.hexToInt = number.hexToInt
-        result.hexToDouble = number.hexToDouble
-        result.hexToBinary = number.hexToBinary
+        
+        if number.first != "-" {
+            result.hexToInt = number.hexToInt
+            result.hexToDouble = number.hexToDouble
+            result.hexToBinary = number.hexToBinary
+            result.binaryToInt = number.binaryToInt
+            result.binaryToDouble = number.binaryToDouble
+            result.binaryToHex = number.binaryToHex
+        }
         result.decimalToHex = number.decimalToHex
         result.decimalToBinary = number.decimalToBinary
-        result.binaryToInt = number.binaryToInt
-        result.binaryToDouble = number.binaryToDouble
-        result.binaryToHex = number.binaryToHex
         result.complementToInt = number.complementToInt
         result.intToComplement = number.intToComplement
         
@@ -56,12 +59,24 @@ class Calculator: NSObject {
         return invertedString
     }
     
- class func addBinary(a:String, b:String) -> String {
+    class func addBinary(a:String, b:String) -> String {
         guard let _a = Int(a, radix: 2), let _b = Int(b, radix: 2) else { return "0" }
         
         return String(_a + _b, radix: 2)
     }
     
+    class func expandBinary(binaryString: String, toBitLength: Int) -> String {
+        if binaryString.characters.count < toBitLength {
+            var binary = binaryString
+            while binary.characters.count < toBitLength {
+                binary = "0" + binary
+            }
+            return binary
+        }
+        else {
+            return binaryString
+        }
+    }
 }
 
 extension String {
@@ -97,12 +112,13 @@ extension String {
     //Takes an integer string and turns it into 8 bit two's complement
     var intToComplement: String {
         let intValue = Int(self) != nil ? Int(self)! : 0
-        if intValue <= 127 && intValue >= 128 {
+        if intValue <= 127 && intValue >= -128 {
+            var binary = decimalToBinary
             if intValue >= 0 {
-                return decimalToBinary
+                return Calculator.expandBinary(binaryString: binary, toBitLength: 8)
             }
             else {
-                let binary = decimalToBinary
+                binary = Calculator.expandBinary(binaryString: binary, toBitLength: 8)
                 let invertedBinary = Calculator.invertBinary(binary: binary)
                 let result = Calculator.addBinary(a: invertedBinary, b: "1")
                 
