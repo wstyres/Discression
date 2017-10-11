@@ -21,6 +21,8 @@ struct Result {
     var binaryToHex: String = "0";
     var complementToInt: Int = 0;
     var intToComplement: String = "0";
+    var halfPrecisionBinaryToFloat: Float = 0;
+    var floatToHalfPrecisionBinary: String = "0";
 }
 
 class Calculator: NSObject {
@@ -35,6 +37,8 @@ class Calculator: NSObject {
             result.binaryToInt = number.binaryToInt
             result.binaryToDouble = number.binaryToDouble
             result.binaryToHex = number.binaryToHex
+            result.halfPrecisionBinaryToFloat = number.halfPrecisionBinaryToFloat
+            result.floatToHalfPrecisionBinary = number.floatToHalfPrecisionBinary
         }
         result.decimalToHex = number.decimalToHex
         result.decimalToBinary = number.decimalToBinary
@@ -132,6 +136,7 @@ extension String {
     
     //Convert half precision binary string into a Float
     var halfPrecisionBinaryToFloat: Float {
+        let stringValue = self != "" ? self : "0"
         let unsignedHex = UInt16(binaryToHex, radix: 16)
         var input: [UInt16] = [ unsignedHex! ]
         var output = [Float](repeating: 0, count: 1)
@@ -144,7 +149,8 @@ extension String {
     
     //Convert a Float into a half precision binary string
     var floatToHalfPrecisionBinary: String {
-        var input: [Float] = [ Float(self)! ]
+        let floatValue = Float(self) != nil ? Float(self)! : 0
+        var input: [Float] = [ floatValue ]
         var output = [UInt16](repeating: 0, count: 1)
         var bufferFloat32 = vImage_Buffer(data: &input, height: 1, width: UInt(1), rowBytes: 4)
         var bufferFloat16 = vImage_Buffer(data: &output, height: 1, width: UInt(1), rowBytes: 2)
