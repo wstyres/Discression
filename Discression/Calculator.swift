@@ -101,9 +101,7 @@ extension String {
         }
         else if self.characters.first == "1" {
             let invertedBinary = Calculator.invertBinary(binary: self)
-            print(invertedBinary)
             let additiveComplement = Calculator.addBinary(a: invertedBinary, b: "1")
-            print(additiveComplement)
             var result = additiveComplement.binaryToInt
             result.negate()
             return result
@@ -137,7 +135,7 @@ extension String {
     //Convert half precision binary string into a Float
     var halfPrecisionBinaryToFloat: Float {
         let stringValue = self != "" ? self : "0"
-        let unsignedHex = UInt16(binaryToHex, radix: 16)
+        let unsignedHex = UInt16(stringValue.binaryToHex, radix: 16)
         var input: [UInt16] = [ unsignedHex! ]
         var output = [Float](repeating: 0, count: 1)
         var bufferFloat16 = vImage_Buffer(data: &input, height: 1, width: UInt(1), rowBytes: 2)
