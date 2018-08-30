@@ -70,9 +70,9 @@ class Calculator: NSObject {
     }
     
     class func expandBinary(binaryString: String, toBitLength: Int) -> String {
-        if binaryString.characters.count < toBitLength {
+        if binaryString.count < toBitLength {
             var binary = binaryString
-            while binary.characters.count < toBitLength {
+            while binary.count < toBitLength {
                 binary = "0" + binary
             }
             return binary
@@ -96,14 +96,18 @@ extension String {
     
     //Takes two's complement binary string and converts it into an int
     var complementToInt: Int {
-        if self.characters.first == "0" {
+        if self.first == "0" {
             return binaryToInt
         }
-        else if self.characters.first == "1" {
+        else if self.first == "1" {
             let invertedBinary = Calculator.invertBinary(binary: self)
+            print(invertedBinary)
             let additiveComplement = Calculator.addBinary(a: invertedBinary, b: "1")
+            print(additiveComplement)
             var result = additiveComplement.binaryToInt
+            print(result)
             result.negate()
+            print(result)
             return result
         }
         else {
@@ -122,8 +126,8 @@ extension String {
             else {
                 binary = Calculator.expandBinary(binaryString: binary, toBitLength: 8)
                 let invertedBinary = Calculator.invertBinary(binary: binary)
-                let result = Calculator.addBinary(a: invertedBinary, b: "1")
-                
+                var result = Calculator.addBinary(a: invertedBinary, b: "1")
+                result = "1" + result
                 return result
             }
         }
